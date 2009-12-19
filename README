@@ -1,5 +1,9 @@
-Basic Python Project
-====================
+Prowl support for Twisted Python
+================================
 
-A trivial python skeleton project that you can branch and begin developing on.
+Prowl_ is a combination notification app for the iphone + HTTP-based API for
+issuing the notifications.  This package is just a very simple API for making
+API calls using Twisted.
+
+.. Prowl: http://prowl.weks.net/
 
