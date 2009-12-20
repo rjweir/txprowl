@@ -14,7 +14,7 @@ def notify(*args):
 
 map = {
     'verify': (verify_api_key, 1, "usage: prowl verify APIKEY"),
-    'notify': (notify, 5, "usage: prowl add APIKEY PRIORITY APPLICATION EVENT DESCRIPTION"),
+    'notify': (notify, 5, "usage: prowl notify APIKEY PRIORITY APPLICATION EVENT DESCRIPTION"),
     }
 
 def cmdlinetool(args):
