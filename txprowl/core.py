@@ -101,9 +101,6 @@ def verify_api_key(apikey):
     @type apikey: L{str}
     @param apikey: api key of the user the message is for (40 bytes long)
     """
-    command = "verify"
-    data = {'apikey': apikey.encode('utf-8')}
-    return make_get_request(
-        API_ROOT + command,
-        data
+    return make_get_request("verify",
+        {'apikey': apikey.encode('utf-8')}
         )
