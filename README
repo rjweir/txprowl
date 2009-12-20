@@ -6,4 +6,3 @@ issuing the notifications.  This package is just a very simple API for making
 API calls using Twisted.
 
 .. Prowl: http://prowl.weks.net/
-
