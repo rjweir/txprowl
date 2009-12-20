@@ -51,7 +51,8 @@ def parse_success(response):
     ret = int(result.get("remaining")), datetime.fromtimestamp(int(result.get("resetdate")))
     return ret
 
-def do_get_request(url, data):
+def make_get_request(method, data):
+    url = API_ROOT + method
     d = getPage(
         url + "?" + urlencode(data)
         )
@@ -59,8 +60,8 @@ def do_get_request(url, data):
     d.addErrback(fail_handler)
     return d
 
-def do_post_request(url, data):
-    print "posting %s to %s" % (data, url)
+def make_post_request(method, data):
+    url = API_ROOT + method
     d = getPage(
         url,
         method='POST',
@@ -70,12 +71,6 @@ def do_post_request(url, data):
     d.addCallback(parse_success)
     d.addErrback(fail_handler)
     return d
-
-def make_request(command, data):
-    return do_post_request(
-        API_ROOT + command,
-        data
-        )
 
 def add(apikey, priority=constants.NORMAL, application='txprowl', event='test', description='veryboring'):
     """Add a notification for a particular user.
@@ -91,7 +86,7 @@ def add(apikey, priority=constants.NORMAL, application='txprowl', event='test', 
     @type description: L{unicode}
     @param description: body of the notification - e.g. for an IM message notification, it might be the (beginning of) the received message (may be up to 10000 characters long).
     """
-    return make_request("add", {
+    return make_post_request("add", {
             'apikey': apikey,
             'priority': priority.encode('utf-8'),
             'application': application.encode('utf-8'),
@@ -108,7 +103,7 @@ def verify_api_key(apikey):
     """
     command = "verify"
     data = {'apikey': apikey.encode('utf-8')}
-    return do_get_request(
+    return make_get_request(
         API_ROOT + command,
         data
         )
