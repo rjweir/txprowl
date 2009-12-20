@@ -77,25 +77,21 @@ def make_request(command, data):
         data
         )
 
-class Add(object):
+def add(apikey, priority=constants.NORMAL, application='txprowl', event='test', description='veryboring'):
     """Add a notification for a particular user."""
+    return make_request("add", {
+            'apikey': apikey,
+            'priority': priority,
+            'application': application,
+            'event': event,
+            'description': description
+            })
 
-    def go(self, apikey, priority=constants.NORMAL, application='txprowl', event='test', description='veryboring'):
-        return make_request("add", {
-                'apikey': apikey,
-                'priority': priority,
-                'application': application,
-                'event': event,
-                'description': description
-                })
-
-class Verify(object):
+def verify_api_key(apikey):
     """Verify a given API key is valid."""
-
-    def go(self, apikey):
-        command = "verify"
-        data = {'apikey': apikey.encode('utf-8')}
-        return do_get_request(
-            API_ROOT + command,
-            data
-            )
+    command = "verify"
+    data = {'apikey': apikey.encode('utf-8')}
+    return do_get_request(
+        API_ROOT + command,
+        data
+        )
