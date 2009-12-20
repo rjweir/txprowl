@@ -2,7 +2,7 @@ from urllib import urlencode
 from xml.etree import ElementTree
 from datetime import datetime
 
-from twisted.web.client import getPage
+from twisted.web.client import getPage as _getPage
 from twisted.web.error import Error
 
 from txprowl import constants
@@ -50,6 +50,11 @@ def parse_success(response):
     result = tree.find('success')
     ret = int(result.get("remaining")), datetime.fromtimestamp(int(result.get("resetdate")))
     return ret
+
+def getPage(*args, **kwargs):
+    if 'agent' not in kwargs:
+        kwargs['agent'] = 'txprowl'
+    return _getPage(*args, **kwargs)
 
 def make_get_request(method, data):
     url = API_ROOT + method
