@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+# -*- mode: python -*-
+
+import sys
+
+from txprowl.demo import cmdlinetool
+
+cmdlinetool(sys.argv[1:])
