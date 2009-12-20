@@ -78,17 +78,34 @@ def make_request(command, data):
         )
 
 def add(apikey, priority=constants.NORMAL, application='txprowl', event='test', description='veryboring'):
-    """Add a notification for a particular user."""
+    """Add a notification for a particular user.
+
+    @type apikey: L{str}
+    @param apikey: api key of the user the message is for (40 bytes long)
+    @type priority: one of L{txprowl.constants}
+    @param priority: priority of the message.  users may allow EMERGENCY priority notifications while blocking others
+    @type application: L{unicode}
+    @param application: name you would like your application to be know by (may be up to 256 characters long).
+    @type event: L{unicode}
+    @param event: name or subject of the event - e.g. for an IM message notification, it might be sender's nickname (may be up to 1024 characters long).
+    @type description: L{unicode}
+    @param description: body of the notification - e.g. for an IM message notification, it might be the (beginning of) the received message (may be up to 10000 characters long).
+    """
     return make_request("add", {
             'apikey': apikey,
-            'priority': priority,
-            'application': application,
-            'event': event,
-            'description': description
+            'priority': priority.encode('utf-8'),
+            'application': application.encode('utf-8'),
+            'event': event.encode('utf-8'),
+            'description': description.encode('utf-8')
             })
 
 def verify_api_key(apikey):
-    """Verify a given API key is valid."""
+    """Verify a given API key is valid.
+    Note: This does, by itself, cost an API call.
+
+    @type apikey: L{str}
+    @param apikey: api key of the user the message is for (40 bytes long)
+    """
     command = "verify"
     data = {'apikey': apikey.encode('utf-8')}
     return do_get_request(
